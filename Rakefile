@@ -15,7 +15,7 @@ end
 
 desc "Install gem locally"
 task :install => :build do
-  system "gem install pkg/#{gemspec.name}-#{gemspec.version}"
+  system "gem install pkg/#{gemspec.name}-#{gemspec.version} --no-ri --no-rdoc"
 end
 
 desc "Clean automatically generated files"
