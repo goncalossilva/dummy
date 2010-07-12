@@ -1,6 +1,3 @@
-require "bundler"
-Bundler.setup
-
 gemspec = eval(File.read(Dir["*.gemspec"].first))
 
 
