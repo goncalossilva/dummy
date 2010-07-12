@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'gremlin/address'
+require 'gremlin/company'
 require 'gremlin/internet'
 require 'gremlin/lorem'
 require 'gremlin/name'
