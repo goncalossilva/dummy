@@ -8,20 +8,18 @@ require 'gremlin/phone_number'
 require 'gremlin/geolocation'
 
 module Gremlin
-  class << self
-    def numerify(number_string)
-      number_string.gsub!(/#/) { rand(10).to_s }
-      number_string
-    end
+  extend self
+  
+  def numerify(number_string)
+    number_string.gsub(/#/) { rand(10).to_s }
+  end
 
-    def letterify(letter_string)
-      letter_string.gsub!(/\?/) { ('a'..'z').rand }
-      letter_string
-    end
+  def letterify(letter_string)
+    letter_string.gsub(/\?/) { ('a'..'z').to_a.rand }
+  end
 
-    def bothify(string)
-      letterify(numerify(string))
-    end
+  def bothify(string)
+    letterify(numerify(string))
   end
 end
 
