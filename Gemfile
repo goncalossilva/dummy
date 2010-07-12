@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem "gem", :path => File.expand_path("..", __FILE__)
+gem "gremlin", :path => File.expand_path("..", __FILE__)
 
 # Development dependencies 
 gem "rake"
