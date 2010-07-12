@@ -1,12 +1,9 @@
 module Gremlin
   module Internet
-
+    extend self
+  
     def email
-      [ user_name(name), domain_name ].join('@')
-    end
-
-    def free_email
-      "#{user_name(name)}@#{HOSTS.rand}"
+      "#{user_name}@#{HOSTS.rand}"
     end
 
     def user_name
@@ -20,6 +17,8 @@ module Gremlin
         parts
       end
     end
+    
+    private
 
     def domain_name
       "#{domain_word}.#{domain_suffix}"

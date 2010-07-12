@@ -1,5 +1,6 @@
 module Gremlin
   module PhoneNumber
+    extend self
 
     def phone_number
       Gremlin.numerify case rand(20)
@@ -22,9 +23,8 @@ module Gremlin
       end
     end
 
-    def self.short_phone_number
+    def short_phone_number
       Faker.numerify('###-###-####')
     end
-
   end
 end

@@ -1,6 +1,7 @@
 module Gremlin
   module Address
-  
+    extend self
+    
     def zip_code
       Gremlin.numerify ZIP_FORMATS.rand
     end
@@ -37,6 +38,8 @@ module Gremlin
     def neighborhood
       NEIGHBORHOOD.rand
     end
+    
+    private
 
     ZIP_FORMATS = ['#####', '#####-####']
 

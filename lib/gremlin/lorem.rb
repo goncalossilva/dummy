@@ -1,6 +1,7 @@
 module Gremlin
   # Based on Perl's Text::Lorem
   module Lorem
+    extend self
   
     def words
       WORDS.random_pick(5)

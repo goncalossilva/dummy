@@ -1,5 +1,6 @@
 module Gremlin
   module Geolocation
+    extend self
   
     def lat
       (rand(1.8e11)-9e10)/1e9 # precision 9

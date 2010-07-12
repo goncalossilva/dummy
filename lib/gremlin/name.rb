@@ -1,5 +1,6 @@
 module Gremlin
   module Name
+    extend self
   
     def name
       case rand(10)
@@ -8,8 +9,6 @@ module Gremlin
         else        "#{first_name} #{last_name}"
       end
     end
-
-    private
     
     def first_name
       FIRST_NAMES.rand
@@ -18,6 +17,8 @@ module Gremlin
     def last_name
       LAST_NAMES.rand
     end
+    
+    private
 
     def prefix
       PREFIXES.rand
