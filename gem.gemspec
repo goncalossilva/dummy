@@ -1,26 +1,19 @@
-Gem::Specification.new do |s|
-  s.name              = "gem"
-  s.version           = "0.0.1"
-  s.platform          = Gem::Platform::RUBY
-  s.authors           = ["Gonçalo Silva"]
-  s.email             = ["goncalossilva@gmail.com"]
-  s.homepage          = "http://github.com/goncalossilva/gem_template"
-  s.summary           = "Sample gem"
-  s.description       = "A gem template"
-  s.rubyforge_project = s.name
+Gem::Specification.new do |gem|
+  gem.name              = "gremlin"
+  gem.version           = "0.0.1"
+  gem.platform          = Gem::Platform::RUBY
+  gem.authors           = ["Gonçalo Silva"]
+  gem.email             = ["goncalossilva@gmail.com"]
+  gem.homepage          = "http://github.com/goncalossilva/gremlin"
+  gem.summary           = "Generates fake data and test routes and runs performance tests with it"
+  gem.description       = "Generates test routes and consistent fake data, inserts it to the database and runs performance tests with them"
+  gem.rubyforge_project = gem.name
 
-  s.required_rubygems_version = ">= 1.3.7"
+  gem.required_rubygems_version = ">= 1.3.7"
   
-  # If you have other dependencies, add them here
-  # s.add_dependency "another", "~> 1.2"
+  gem.add_dependency "rails", ">= 3.0.0.beta3"
 
-  # If you need to check in files that aren't .rb files, add them here
-  s.files        = Dir["{lib}/**/*.rb", "bin/*", "LICENSE", "*.rdoc"]
-  s.require_path = 'lib'
-
-  # For executables
-  # s.executables = ["gem"]
-
-  # For C extensions
-  # s.extensions = "ext/extconf.rb"
+  gem.files        = Dir["{lib}/**/*.rb", "LICENSE", "*.md"]
+  
+  gem.require_path = 'lib'
 end
