@@ -1,4 +1,6 @@
 require 'rails/generators'
+require 'rubygems'
+require 'gremlin'
 
 class GremlinGenerator < Rails::Generators::Base
   def self.source_root
