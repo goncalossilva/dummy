@@ -36,7 +36,7 @@ module Gremlin
       DOMAIN_SUFFIXES.rand
     end
 
-    HOSTS = k %w(gmail.com yahoo.com hotmail.com)
-    DOMAIN_SUFFIXES = k %w(co.uk com us uk ca biz info name)
+    HOSTS = %w(gmail.com yahoo.com hotmail.com)
+    DOMAIN_SUFFIXES = %w(co.uk com us uk ca biz info name)
   end
 end

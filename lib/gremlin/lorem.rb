@@ -1,9 +1,7 @@
 module Gremlin
   # Based on Perl's Text::Lorem
   module Lorem
-    extend ModuleUtils
-    extend self
-
+  
     def words
       WORDS.random_pick(5)
     end
@@ -26,8 +24,10 @@ module Gremlin
     def paragraphs
       (1..3).map { paragraph }
     end
+    
+    private
 
-    WORDS = k %w(alias consequatur aut perferendis sit voluptatem accusantium
+    WORDS = %w(alias consequatur aut perferendis sit voluptatem accusantium
       doloremque aperiam eaque ipsa quae ab illo inventore veritatis
       et quasi architecto beatae vitae dicta sunt explicabo aspernatur
       aut odit aut fugit sed quia consequuntur magni dolores eos qui

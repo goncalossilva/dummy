@@ -1,16 +1,16 @@
 module Gremlin
   module Name
-    extend ModuleUtils
-    extend self
-
+  
     def name
       case rand(10)
-      when 0 then "#{prefix} #{first_name} #{last_name}"
-      when 1 then "#{first_name} #{last_name} #{suffix}"
-      else        "#{first_name} #{last_name}"
+        when 0 then "#{prefix} #{first_name} #{last_name}"
+        when 1 then "#{first_name} #{last_name} #{suffix}"
+        else        "#{first_name} #{last_name}"
       end
     end
 
+    private
+    
     def first_name
       FIRST_NAMES.rand
     end
@@ -27,7 +27,7 @@ module Gremlin
       SUFFIXES.rand
     end
 
-    FIRST_NAMES = k %w(Aaliyah Aaron Abagail Abbey Abbie Abbigail Abby Abdiel Abdul
+    FIRST_NAMES = %w(Aaliyah Aaron Abagail Abbey Abbie Abbigail Abby Abdiel Abdul
       Abdullah Abe Abel Abelardo Abigail Abigale Abigayle Abner Abraham Ada Adah
       Adalberto Adaline Adam Adan Addie Addison Adela Adelbert Adele Adelia
       Adeline Adell Adella Adelle Aditya Adolf Adolfo Adolph Adolphus Adonis
@@ -316,7 +316,7 @@ module Gremlin
       Zachery Zack Zackary Zackery Zakary Zander Zane Zaria Zechariah Zelda Zella
       Zelma Zena Zetta Zion Zita Zoe Zoey Zoie Zoila Zola Zora Zula)
 
-    LAST_NAMES = k %w(Abbott Abernathy Abshire Adams Altenwerth Anderson
+    LAST_NAMES = %w(Abbott Abernathy Abshire Adams Altenwerth Anderson
       Ankunding Armstrong Auer Aufderhar Bahringer Bailey Balistreri Barrows
       Bartell Bartoletti Barton Bashirian Batz Bauch Baumbach Bayer Beahan Beatty
       Bechtelar Becker Bednar Beer Beier Berge Bergnaum Bergstrom Bernhard
@@ -367,8 +367,8 @@ module Gremlin
       Witting Wiza Wolf Wolff Wuckert Wunsch Wyman Yost Yundt Zboncak Zemlak
       Ziemann Zieme Zulauf)
 
-    PREFIXES = k %w(Mr. Mrs. Ms. Miss Dr.)
+    PREFIXES = %w(Mr. Mrs. Ms. Miss Dr.)
 
-    SUFFIXES = k %w(Jr. Sr. I II III IV V MD DDS PhD DVM)
+    SUFFIXES = %w(Jr. Sr. I II III IV V MD DDS PhD DVM)
   end
 end

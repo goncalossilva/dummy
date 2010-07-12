@@ -1,7 +1,5 @@
 module Gremlin
   module PhoneNumber
-    extend ModuleUtils
-    extend self
 
     def phone_number
       Gremlin.numerify case rand(20)

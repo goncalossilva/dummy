@@ -1,5 +1,6 @@
 module Gremlin
   module Address
+  
     def zip_code
       Gremlin.numerify ZIP_FORMATS.rand
     end
