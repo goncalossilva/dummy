@@ -2,31 +2,29 @@ module Gremlin
   # Based on Perl's Text::Lorem
   module Lorem
     extend self
-  
-    def words
-      WORDS.random_pick(5)
-    end
 
     def sentence
-      s = words(7 + rand(5))
-      s = s.join(' ')
-      s.capitalize!
+      s = words.join(' ').capitalize!
       "#{s}."
     end
 
     def sentences
-      (1..3).map { sentence }
+      (1..3).map { sentence }.join(' ')
     end
 
     def paragraph
-      (1..3).map { sentences }
+      (1..3).map { sentences }.join(' ')
     end
 
     def paragraphs
-      (1..3).map { paragraph }
+      (1..3).map { paragraph }.join('\n')
     end
     
     private
+    
+    def words
+      (1..5).map { WORDS.rand }
+    end
 
     WORDS = %w(alias consequatur aut perferendis sit voluptatem accusantium
       doloremque aperiam eaque ipsa quae ab illo inventore veritatis
