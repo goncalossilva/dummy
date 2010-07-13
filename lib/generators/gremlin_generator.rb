@@ -16,89 +16,73 @@ class GremlinGenerator < Rails::Generators::Base
   private
   
   def initialize_application
-    output_status("Initializing the application") do
-      require File.expand_path("config/environment.rb")
-    end
+    require File.expand_path("config/environment.rb")
+    say_status :successful, "Rails application initialize"
   end
   
   def generate_gremlin_data
     Dir["app/models/*.rb"].each do |full_path|
-      mh = Hash.new
-		  ma = Hash.new
-		  mf = Hash.new
-		
       name = File.basename(full_path).chomp(File.extname(full_path))
-      
-      output_status("Generating data for '#{name}'") do
+      file = File.new("test/gremlin/#{name}.yml","w")
+  
+      (0..10).each do |num|
+        key_value = Hash.new
+        fixture_data = Hash.new
+        
         begin
           eval(name.camelcase).columns.each do |column|
-            generate_record_data(name, column, mh, ma, mf)
-          #puts name.camelcase + " => " + column.name + " ("+column.type.to_s.downcase+")"
+            key_value = generate_record_data(name, column)
+            fixture_data.merge!(key_value) unless key_value.nil?
           end
-        rescue NoMethodError
+        rescue NoMethodError => e
+          puts "#{e}" # TODO: remove
         end
-        mf.merge!(name => {"fields" => ma})
-		    mf[name].merge!({"quantity" => 10})
-		    File.open("test/gremlin/" + "%03d" % eval(name.camelcase).reflections.count + "-" + name  + ".yml","w") do |out|
-			    YAML.dump(mf,out)
-	      end
+        
+        fixture = { "#{name}_#{num}" => fixture_data }
+        YAML.dump(fixture, file)
       end
+      say_status :successful, "data generation for '#{name}'"
+      file.close
     end 
   end
   
-  def generate_record_data(name, column, mh, ma, mf)
+  def generate_record_data(name, column)
+    # Journal.reflect_on_all_associations(:belongs_to).count => 3 # FIXME
     if column.name.include? "_id" then
-			vl = "@" + column.name.sub("_id","").pluralize + "[rand(@" + column.name.sub('_id','').pluralize + ".length)][1]"
-			mh = {column.name => vl}
-			ma.merge!(mh)
+			val = "@" + column.name.sub("_id","").pluralize + "[rand(@" + column.name.sub('_id','').pluralize + ".length)][1]"
 		else
 			case column.type.to_s.downcase
-				when 'string'
+				when 'string' then
 					case (1 + rand(3))
-						when 1					
-							vl = Gremlin::Name.name
-						when 2
-							vl = Gremlin::Lorem.words
-						when 3 
-							vl = Gremlin::Lorem.sentence
-						when 4 
-							vl = Gremlin::PhoneNumber.phone_number
+						when 1 then	
+							val = Gremlin::Name.name
+						when 2 then
+							val = Gremlin::Lorem.sentence
+						when 3 then
+							val = Gremlin::PhoneNumber.phone_number
 					end
 				when 'text' then 
-					vl = Gremlin::Lorem.paragraph
+					val = Gremlin::Lorem.paragraph
 				when 'integer' then
-					vl = rand(1000)
-				when 'datetime' 
-					vl = Date.today.to_s
-				when 'date'
-					vl = Date.today.to_s
+					val = rand(1000)
+				when 'datetime' then
+					val = Date.today.to_s
+				when 'date' then
+					val = Date.today.to_s
 				when 'decimal' then
-					vl = rand(50).to_s + "." + (1000+rand(2000)).to_s
+					val = rand(50).to_s + "." + (1000+rand(2000)).to_s
+				when 'boolean' then
+				  val = rand(2)
 				else
-					puts "=-------=============> " + column.type.to_s.downcase
+					say_status :failed, "data generation for '#{column.name}' with type '#{column.type.to_s.downcase}'", :red
 			end
-			if not column.name.include? "_at" and :include_special	
-				mh = {column.name => vl}
-				ma.merge!(mh)
-			end
+    end
+    if not column.name.include? "_at"	
+			{column.name => val}
 		end
   end
   
   def copy_rake_file
-    output_status("Copying the rake file") do
-      copy_file "benchmark.rake", "lib/tasks/benchmark.rake"
-    end
-  end
-  
-  def output_status(message)
-    print "#{message}... "
-    begin
-      yield
-      puts "OK"
-    rescue Exception => e
-      puts "#{e}"
-      puts "Aborted!"
-      Process.exit
-    end
+    copy_file "benchmark.rake", "lib/tasks/benchmark.rake"
   end
 end
