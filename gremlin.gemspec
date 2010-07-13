@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   
   gem.add_dependency "rails", ">= 3.0.0.beta3"
 
-  gem.files        = Dir["{lib}/**/*.rb", "LICENSE", "*.md"]
+  gem.files        = Dir["{lib}/**/*.rb", "{lib}/**/*.rake", "LICENSE", "*.md"]
   
   gem.require_path = 'lib'
 end
