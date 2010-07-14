@@ -97,6 +97,8 @@ class GremlinGenerator < Rails::Generators::Base
       name = model.to_s.underscore
       file = File.new("test/gremlin/#{name}.yml","w")
       
+      file.write("# #{model.to_s} data generated automatically by gremlin.\n")
+      
       (0..info[:record_amount]).each do |num|
         key_value = Hash.new
         fixture_data = Hash.new
