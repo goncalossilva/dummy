@@ -102,7 +102,7 @@ class GremlinGenerator < Rails::Generators::Base
         fixture_data = Hash.new
         
         model.columns.each do |column|
-          key_value = generate_record_data(name, column)
+          key_value = generate_record_data(name, info, column)
           fixture_data.merge!(key_value) unless key_value.nil?
         end
         
@@ -114,36 +114,57 @@ class GremlinGenerator < Rails::Generators::Base
     end
   end
   
-  def generate_record_data(name, column)
-    if column.name.include? "_id" then
-			val = "@" + column.name.sub("_id","").pluralize + "[rand(@" + column.name.sub('_id','').pluralize + ".length)][1]"
-		else
-			case column.type.to_s.downcase
-				when 'string' then
-					case (1 + rand(3))
-						when 1 then	
-							val = Gremlin::Name.name
-						when 2 then
-							val = Gremlin::Lorem.sentence
-						when 3 then
-							val = Gremlin::PhoneNumber.phone_number
-					end
-				when 'text' then 
-					val = Gremlin::Lorem.paragraph
-				when 'integer' then
-					val = rand(1000)
-				when 'date', 'datetime' then
-					val = Date.today.to_s
-				when 'decimal' then
-					val = rand(50).to_s + "." + (1000+rand(2000)).to_s
-				when 'boolean' then
-				  val = rand(2)
-				else
-					say_status :failed, "data generation for '#{column.name}' with type '#{column.type.to_s.downcase}'", :red
-			end
+  def generate_record_data(name, info, column)
+    if (column.name =~ /_at$/ and column.type == :datetime) or column.name == "id"
+      return
     end
-    if not column.name.include? "_at"	
-			{column.name => val}
+  
+    associated_model = associated_class_name(info, column.name)
+    
+    if associated_model
+      val = generate_association_data(associated_model)
+		else
+			val = generate_regular_data(column)
+    end
+    
+		{column.name => val}
+  end
+  
+  def associated_class_name(info, name)
+    info[:associations].each do |association|
+      return association[:class_name] if association[:foreign_key] == name
+    end
+    false
+  end
+  
+  def generate_association_data(associated_model)
+    random_record_num = rand(@models[associated_model.constantize][:record_amount])
+		"#{associated_model.to_s.underscore}_#{random_record_num}"
+  end
+  
+  def generate_regular_data(column)
+    case column.type
+			when :string then
+				case (1 + rand(3))
+					when 1 then	
+						val = Gremlin::Name.name
+					when 2 then
+						val = Gremlin::Lorem.sentence
+					when 3 then
+						val = Gremlin::PhoneNumber.phone_number
+				end
+			when :text then 
+				val = Gremlin::Lorem.paragraph
+			when :integer then
+				val = rand(1000)
+			when :date, :datetime then
+				val = Date.today.to_s
+			when :decimal, :float then
+				val = rand(50).to_s + "." + (1000+rand(2000)).to_s
+			when :boolean then
+			  val = rand(2)
+			else
+				say_status :failed, "data generation for '#{column.name}' with type '#{column.type.to_s.downcase}'", :red
 		end
   end
   
