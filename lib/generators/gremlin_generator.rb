@@ -7,8 +7,10 @@ class GremlinGenerator < Rails::Generators::Base
   def self.source_root
     @source_root ||= File.expand_path('../templates', __FILE__)
   end
-  class_option :base_record_amount, :type => :numeric, :default => 10,
-              :desc => "The base amount of records to generate for each model. Depending on associations, the generated value may vary depending on the specified base amount."
+  class_option :base_amount, :type => :numeric, :default => 10,
+              :desc => "The base amount of records to generate for each model."
+  class_option :growth_ratio, :type => :numeric, :default => 2.0,
+              :desc => "The growth ratio of each model, according to its associations."
   
   def install_gremlin
     initialize_application
@@ -20,7 +22,7 @@ class GremlinGenerator < Rails::Generators::Base
   
   def initialize_application
     require File.expand_path("config/environment.rb")
-    say_status :successful, "Rails application initialize"
+    say_status :successful, "Initialize Rails application"
   end
   
   def generate_gremlin_data
@@ -42,21 +44,31 @@ class GremlinGenerator < Rails::Generators::Base
   
   def gather_associations
     @models.each_key do |model|
+      model_symbol = model.to_s.underscore.pluralize.to_sym
       associations = model.reflect_on_all_associations(:belongs_to)
       
-      associations.each do |association|
-        if association.options.empty?
-          name = association.name.to_s
-          
-          @models[model][:associations].push({
-            :class_name  => name.camelcase,
-            :foreign_key => "#{name}_id"
-          })
-        elsif association.options.has_key?(:class_name)
-          @models[model][:associations].push(association.options)
-        end
-      end
+      associations.each do |assoc|
+        assoc_name = assoc.name.to_s.camelcase
+        assoc_options = assoc.options
       
+        if assoc_options.empty?         
+          @models[model][:associations].push({
+            :model  => assoc_name.constantize,
+            :foreign_key => "#{assoc_name.underscore}_id"
+          })
+        elsif assoc_options.has_key?(:class_name) and assoc_options.has_key?(:foreign_key)
+          @models[model][:associations].push({
+            :model => assoc_options[:class_name].constantize, #TODO class_name
+            :foreign_key => assoc_options[:foreign_key]
+          })
+        else
+          next
+        end
+        
+        assoc_model = @models[model][:associations].last[:model]
+        assoc_reflections = assoc_model.reflect_on_all_associations(:has_many)
+        @models[model][:associations].pop if assoc_reflections.map(&:name).include?(model_symbol)
+      end      
     end
   end
   
@@ -68,24 +80,23 @@ class GremlinGenerator < Rails::Generators::Base
   end
   
   def predict_record_amount(model, info, models, stacked_models)
-    info[:associations].each do |association|
-      assoc_model = association[:class_name].constantize
-      
-      if model != assoc_model and not stacked_models.include?(assoc_model)      
-        stacked_models << assoc_model
-        predict_record_amount(assoc_model, @models[assoc_model], models, stacked_models)
+    info[:associations].each do |assoc|
+      next if stacked_models.include?(assoc[:model])
+        
+      if model != assoc[:model]      
+        stacked_models << assoc[:model]
+        predict_record_amount(assoc[:model], @models[assoc[:model]], models, stacked_models)
       end
     end
     
-    if info[:associations].empty?
-      @models[model][:record_amount] = options.base_record_amount
-    else
-      amount = info[:associations].map do |association|
-        @models[association[:class_name].constantize][:record_amount]
-      end.max*2
-      
-      @models[model][:record_amount] = amount
+    amount = options.base_amount
+    if not info[:associations].empty?
+      amount = info[:associations].map do |assoc|
+        @models[assoc[:model]][:record_amount]
+      end.max*options.growth_ratio # **info[:associations].size
     end
+    
+    @models[model][:record_amount] = amount.to_i
     stacked_models.delete(model)
     models.delete(model)
   end
@@ -97,7 +108,7 @@ class GremlinGenerator < Rails::Generators::Base
       name = model.to_s.underscore
       file = File.new("test/gremlin/#{name}.yml","w")
       
-      file.write("# #{model.to_s} data generated automatically by gremlin.\n")
+      file.write("# #{model.to_s} data generated automatically by gremlin (#{info[:record_amount]} records).\n")
       
       (0..info[:record_amount]).each do |num|
         key_value = Hash.new
@@ -111,7 +122,7 @@ class GremlinGenerator < Rails::Generators::Base
         fixture = { "#{name}_#{num}" => fixture_data }
         YAML.dump(fixture, file)
       end
-      say_status :successful, "data generation for '#{name}'"
+      say_status :successful, "Generate #{info[:record_amount]} records for '#{name}'"
       file.close
     end
   end
@@ -133,14 +144,14 @@ class GremlinGenerator < Rails::Generators::Base
   end
   
   def associated_class_name(info, name)
-    info[:associations].each do |association|
-      return association[:class_name] if association[:foreign_key] == name
+    info[:associations].each do |assoc|
+      return assoc[:model] if assoc[:foreign_key] == name
     end
     false
   end
   
   def generate_association_data(associated_model)
-    random_record_num = rand(@models[associated_model.constantize][:record_amount])
+    random_record_num = rand(@models[associated_model][:record_amount])
 		"#{associated_model.to_s.underscore}_#{random_record_num}"
   end
   
