@@ -1,5 +1,7 @@
-gemspec = eval(File.read(Dir["*.gemspec"].first))
+require 'rake'
+require 'spec/rake/spectask'
 
+gemspec = eval(File.read(Dir["*.gemspec"].first))
 
 desc "Validate the gemspec"
 task :gemspec do
