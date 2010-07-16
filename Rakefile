@@ -24,3 +24,18 @@ desc "Clean automatically generated files"
 task :clean do
   FileUtils.rm_rf "pkg"
 end
+
+namespace :test do
+  desc "Run all tests"
+  Spec::Rake::SpecTask.new("all") do |t|
+    t.spec_files = FileList['spec/*_spec.rb']
+    t.spec_opts = ["-c", "-f n"]    
+  end
+  
+  desc "Run a specific test file"
+  task :specific, :name do |t, args|
+    system "spec spec/#{args.name}_spec.rb -c -f n"
+  end
+end
+
+
