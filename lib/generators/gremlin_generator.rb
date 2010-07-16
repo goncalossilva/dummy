@@ -76,6 +76,7 @@ class GremlinGenerator < Rails::Generators::Base
     models = @models.dup
     models.each do |model, info|
       predict_record_amount(model, info, models, [])
+      remove_if_subclass(model)
     end
   end
   
@@ -96,9 +97,16 @@ class GremlinGenerator < Rails::Generators::Base
       end.max*options.growth_ratio # **info[:associations].size
     end
     
-    @models[model][:record_amount] = amount.to_i
+    @models[model][:record_amount] += amount.to_i
     stacked_models.delete(model)
     models.delete(model)
+  end
+  
+  def remove_if_subclass(model)
+    if @models.keys.include?(model.superclass)
+      @models[model.superclass][:record_amount] += @models[model][:record_amount]
+      @models.delete(model)
+    end
   end
   
   def generate_and_write_data
@@ -106,7 +114,7 @@ class GremlinGenerator < Rails::Generators::Base
     
     @models.each do |model, info|
       name = model.to_s.underscore
-      file = File.new("test/gremlin/#{name}.yml","w")
+      file = File.new("test/gremlin/#{name.pluralize}.yml","w")
       
       file.write("# #{model.to_s} data generated automatically by gremlin (#{info[:record_amount]} records).\n")
       
