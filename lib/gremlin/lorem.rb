@@ -17,7 +17,7 @@ module Gremlin
     end
 
     def paragraphs
-      (1..3).map { paragraph }.join('\n')
+      (1..3).map { paragraph }.join("\n")
     end
     
     private

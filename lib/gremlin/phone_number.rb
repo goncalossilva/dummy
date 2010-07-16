@@ -24,7 +24,7 @@ module Gremlin
     end
 
     def short_phone_number
-      Faker.numerify('###-###-####')
+      Gremlin.numerify('###-###-####')
     end
   end
 end
