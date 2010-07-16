@@ -1,6 +1,7 @@
 require 'rails/generators'
 require 'rubygems'
 require 'gremlin'
+require 'yaml'
 require 'active_support'
 
 class GremlinGenerator < Rails::Generators::Base
