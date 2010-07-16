@@ -20,22 +20,6 @@ module Gremlin
     
     private
 
-    def domain_name
-      "#{domain_word}.#{domain_suffix}"
-    end
-
-    def domain_word
-      dw = Company.name.split(' ').first
-      dw.gsub!(/\W/, '')
-      dw.downcase!
-      dw
-    end
-
-    def domain_suffix
-      DOMAIN_SUFFIXES.rand
-    end
-
     HOSTS = %w(gmail.com yahoo.com hotmail.com)
-    DOMAIN_SUFFIXES = %w(co.uk com us uk ca biz info name)
   end
 end
