@@ -18,10 +18,6 @@ module Gremlin
       CITIES.rand
     end
 
-    def street_suffix
-      STREET_SUFFIX.rand
-    end
-
     def street_name
       case rand(2)
       when 0 then "#{Name.last_name} #{street_suffix}"
@@ -40,6 +36,10 @@ module Gremlin
     end
     
     private
+    
+    def street_suffix
+      STREET_SUFFIX.rand
+    end
 
     ZIP_FORMATS = ['#####', '#####-####']
 
