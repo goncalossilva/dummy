@@ -114,12 +114,13 @@ class GremlinGenerator < Rails::Generators::Base
     empty_directory "test/gremlin"
     
     @models.each do |model, info|
+      fixtures = Hash.new
       name = model.to_s.underscore
-      file = File.new("test/gremlin/#{name.pluralize}.yml","w")
+      file = File.new("test/gremlin/#{model.table_name}.yml","w")
       
       file.write("# #{model.to_s} data generated automatically by gremlin (#{info[:record_amount]} records).\n")
       
-      (0..info[:record_amount]).each do |num|
+      (0..info[:record_amount]-1).each do |num|
         key_value = Hash.new
         fixture_data = Hash.new
         
