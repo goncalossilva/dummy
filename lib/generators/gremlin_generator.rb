@@ -128,11 +128,12 @@ class GremlinGenerator < Rails::Generators::Base
           fixture_data.merge!(key_value) unless key_value.nil?
         end
         
-        fixture = { "#{name}_#{num}" => fixture_data }
-        YAML.dump(fixture, file)
+        fixtures.merge!({ "#{name}_#{num}" => fixture_data })
       end
-      say_status :successful, "Generate #{info[:record_amount]} records for '#{name}'"
+      
+      YAML.dump(fixtures, file)
       file.close
+      say_status :successful, "Generate #{info[:record_amount]} records for '#{name}'"
     end
   end
   
