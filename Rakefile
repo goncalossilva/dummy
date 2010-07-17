@@ -1,5 +1,6 @@
-require 'rake'
-require 'spec/rake/spectask'
+require "rake"
+require "rspec"
+require "rspec/core/rake_task"
 
 gemspec = eval(File.read(Dir["*.gemspec"].first))
 
@@ -27,15 +28,20 @@ end
 
 namespace :test do
   desc "Run all tests"
-  Spec::Rake::SpecTask.new("all") do |t|
-    t.spec_files = FileList['spec/*_spec.rb']
-    t.spec_opts = ["-c", "-f n"]    
+  RSpec::Core::RakeTask.new("all") do |t|
+    t.pattern = "spec/**/*_spec.rb"
+    t.spec_opts = ["-c", "-f n"]
   end
   
-  desc "Run a specific test file"
-  task :specific, :name do |t, args|
-    system "spec spec/#{args.name}_spec.rb -c -f n"
+  desc "Run tests on the fake data generators"
+  RSpec::Core::RakeTask.new("gremlin_generators") do |t|
+    t.pattern = "spec/*_spec.rb"
+    t.spec_opts = ["-c", "-f d"]
+  end
+  
+  desc "Run tests on the Rails generator"
+  RSpec::Core::RakeTask.new("rails_generator") do |t|
+    t.pattern = "spec/generator/*_spec.rb"
+    t.spec_opts = ["-c", "-f d"]
   end
 end
-
-
