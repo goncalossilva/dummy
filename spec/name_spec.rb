@@ -2,11 +2,11 @@ require "spec_helper"
 
 describe Gremlin::Name do
   it "generates a valid first name" do
-    Gremlin::Name.first_name.should match /^[A-Z][a-z]+$/
+    Gremlin::Name.first_name.should match /^[A-Z][a-z']+$/
   end
   
   it "generates a valid last name" do
-    Gremlin::Name.last_name.should match /^[A-Z][a-z]+$/
+    Gremlin::Name.last_name.should match /^[A-Z][a-z']+$/
   end
   
   it "generates a valid name" do
