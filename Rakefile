@@ -34,7 +34,7 @@ namespace :test do
   end
   
   desc "Run tests on the fake data generators"
-  RSpec::Core::RakeTask.new("gremlin_generators") do |t|
+  RSpec::Core::RakeTask.new("dummy_generators") do |t|
     t.pattern = "spec/*_spec.rb"
     t.spec_opts = ["-c", "-f d"]
   end

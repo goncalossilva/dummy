@@ -1,4 +1,4 @@
-module Gremlin
+module Dummy
   module Company
     extend self
 

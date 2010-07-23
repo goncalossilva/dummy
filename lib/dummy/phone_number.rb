@@ -1,9 +1,9 @@
-module Gremlin
+module Dummy
   module PhoneNumber
     extend self
 
     def phone_number
-      Gremlin.numerify case rand(20)
+      Dummy.numerify case rand(20)
       when      0 then '###-###-#### x#####'
       when      1 then '###-###-#### x####'
       when      2 then '###-###-#### x###'
@@ -24,7 +24,7 @@ module Gremlin
     end
 
     def short_phone_number
-      Gremlin.numerify('###-###-####')
+      Dummy.numerify('###-###-####')
     end
   end
 end

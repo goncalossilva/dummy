@@ -1,4 +1,4 @@
-module Gremlin
+module Dummy
   # Based on Perl's Text::Lorem
   module Lorem
     extend self

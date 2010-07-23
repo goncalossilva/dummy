@@ -3,7 +3,7 @@ require "thor"
 require "rails/all"
 require "genspec"
 
-describe :gremlin do
+describe :dummy do
   context "with no arguments or options" do
     it "should generate a help message" do
       subject.should output("A Help Message")

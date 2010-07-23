@@ -1,2 +1,2 @@
 require "rspec"
-require "gremlin"
+require "dummy"

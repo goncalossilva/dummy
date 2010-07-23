@@ -1,10 +1,10 @@
 require 'rails/generators'
 require 'rubygems'
-require 'gremlin'
+require 'dummy'
 require 'yaml'
 require 'active_support'
 
-class GremlinGenerator < Rails::Generators::Base
+class DummyGenerator < Rails::Generators::Base
   def self.source_root
     @source_root ||= File.expand_path('../templates', __FILE__)
   end
@@ -13,9 +13,9 @@ class GremlinGenerator < Rails::Generators::Base
   class_option :growth_ratio, :type => :numeric, :default => 2.0,
               :desc => "The growth ratio of each model, according to its associations."
   
-  def install_gremlin
+  def install_dummy
     initialize_application
-    generate_gremlin_data
+    generate_dummy_data
     copy_rake_file
   end
 
@@ -26,7 +26,7 @@ class GremlinGenerator < Rails::Generators::Base
     say_status :successful, "Initialize Rails application"
   end
   
-  def generate_gremlin_data
+  def generate_dummy_data
     get_table_names
     gather_associations
     predict_record_amounts
@@ -111,14 +111,14 @@ class GremlinGenerator < Rails::Generators::Base
   end
   
   def generate_and_write_data
-    empty_directory "test/gremlin"
+    empty_directory "test/dummy"
     
     @models.each do |model, info|
       fixtures = Hash.new
       name = model.to_s.underscore
-      file = File.new("test/gremlin/#{model.table_name}.yml","w")
+      file = File.new("test/dummy/#{model.table_name}.yml","w")
       
-      file.write("# #{model.to_s} data generated automatically by gremlin (#{info[:record_amount]} records).\n")
+      file.write("# #{model.to_s} data generated automatically by dummy (#{info[:record_amount]} records).\n")
       
       (0..info[:record_amount]-1).each do |num|
         key_value = Hash.new
@@ -171,14 +171,14 @@ class GremlinGenerator < Rails::Generators::Base
 			when :string then
 				case (1 + rand(3))
 					when 1 then	
-						val = Gremlin::Name.name
+						val = Dummy::Name.name
 					when 2 then
-						val = Gremlin::Lorem.sentence
+						val = Dummy::Lorem.sentence
 					when 3 then
-						val = Gremlin::PhoneNumber.phone_number
+						val = Dummy::PhoneNumber.phone_number
 				end
 			when :text then 
-				val = Gremlin::Lorem.paragraph
+				val = Dummy::Lorem.paragraph
 			when :integer then
 				val = rand(1000)
 			when :date, :datetime then

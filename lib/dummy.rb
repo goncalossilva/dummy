@@ -1,13 +1,13 @@
 require 'rubygems'
-require 'gremlin/address'
-require 'gremlin/company'
-require 'gremlin/internet'
-require 'gremlin/lorem'
-require 'gremlin/name'
-require 'gremlin/phone_number'
-require 'gremlin/geolocation'
+require 'dummy/address'
+require 'dummy/company'
+require 'dummy/internet'
+require 'dummy/lorem'
+require 'dummy/name'
+require 'dummy/phone_number'
+require 'dummy/geolocation'
 
-module Gremlin
+module Dummy
   extend self
   
   def numerify(number_string)

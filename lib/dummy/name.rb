@@ -1,4 +1,4 @@
-module Gremlin
+module Dummy
   module Name
     extend self
   

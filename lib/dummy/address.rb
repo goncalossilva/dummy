@@ -1,9 +1,9 @@
-module Gremlin
+module Dummy
   module Address
     extend self
     
     def zip_code
-      Gremlin.numerify ZIP_FORMATS.rand
+      Dummy.numerify ZIP_FORMATS.rand
     end
 
     def us_state
@@ -28,7 +28,7 @@ module Gremlin
     def street_address
       str = ( '#' * rand(3) ) << ('### %s' % street_name)
 
-      Gremlin.numerify(str)
+      Dummy.numerify(str)
     end
 
     def neighborhood

@@ -1,10 +1,10 @@
 Gem::Specification.new do |gem|
-  gem.name              = "gremlin"
+  gem.name              = "dummy"
   gem.version           = "0.1"
   gem.platform          = Gem::Platform::RUBY
   gem.authors           = ["Gonçalo Silva"]
   gem.email             = ["goncalossilva@gmail.com"]
-  gem.homepage          = "http://github.com/goncalossilva/gremlin"
+  gem.homepage          = "http://github.com/goncalossilva/dummy"
   gem.summary           = "Generates fake data and test routes and runs performance tests with it"
   gem.description       = "Generates test routes and consistent fake data, inserts it to the database and runs performance tests with them"
   gem.rubyforge_project = gem.name
