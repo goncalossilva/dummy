@@ -28,20 +28,23 @@ end
 
 namespace :test do
   desc "Run all tests"
-  RSpec::Core::RakeTask.new("all") do |t|
-    t.pattern = "spec/**/*_spec.rb"
-    t.spec_opts = ["-c", "-f n"]
+  task :all do
+    Dir["test/**/*_test.rb"].each do |test_path|
+      system "ruby #{test_path}"
+    end
   end
   
-  desc "Run tests on the fake data generators"
-  RSpec::Core::RakeTask.new("dummy_generators") do |t|
-    t.pattern = "spec/*_spec.rb"
-    t.spec_opts = ["-c", "-f d"]
+  desc "Run tests on the dummy data generators"
+  task :dummy_generators do
+    Dir["test/*_test.rb"].each do |test_path|
+      system "ruby #{test_path}"
+    end
   end
   
   desc "Run tests on the Rails generator"
-  RSpec::Core::RakeTask.new("rails_generator") do |t|
-    t.pattern = "spec/generator/*_spec.rb"
-    t.spec_opts = ["-c", "-f d"]
+  task :rails_generator do
+    Dir["test/generators/*_test.rb"].each do |test_path|
+      system "ruby #{test_path}"
+    end
   end
 end
