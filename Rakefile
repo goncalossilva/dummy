@@ -1,6 +1,4 @@
 require "rake"
-require "rspec"
-require "rspec/core/rake_task"
 
 gemspec = eval(File.read(Dir["*.gemspec"].first))
 
