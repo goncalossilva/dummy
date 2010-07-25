@@ -47,7 +47,7 @@ module Dummy
       @models.each_key do |model|
         model_symbol = model.to_s.underscore.pluralize.to_sym
         associations = model.reflect_on_all_associations(:belongs_to)
-
+        
         associations.each do |assoc|
           assoc_name = assoc.name.to_s.camelcase
           assoc_options = assoc.options
@@ -59,7 +59,7 @@ module Dummy
             })
           elsif assoc_options.has_key?(:class_name) and assoc_options.has_key?(:foreign_key)
             @models[model][:associations].push({
-              :model => assoc_options[:class_name].constantize, #TODO class_name
+              :model => assoc_options[:class_name].constantize, # TODO: handle class_name
               :foreign_key => assoc_options[:foreign_key]
             })
           else
@@ -67,7 +67,7 @@ module Dummy
           end
 
           assoc_model = @models[model][:associations].last[:model]
-          assoc_reflections = assoc_model.reflect_on_all_associations(:has_many)
+          assoc_reflections = assoc_model.reflect_on_all_associations(:has_one)
           @models[model][:associations].pop if assoc_reflections.map(&:name).include?(model_symbol)
         end
       end
@@ -77,7 +77,6 @@ module Dummy
       models = @models.dup
       models.each do |model, info|
         predict_record_amount(model, info, models, [])
-        remove_if_subclass(model)
       end
     end
 
