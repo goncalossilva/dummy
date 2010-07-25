@@ -1,41 +1,18 @@
-require File.expand_path(File.dirname(__FILE__) + "../test_helper")
-require "rails/all"
+require File.expand_path(File.dirname(__FILE__) + "/../test_helper")
+require "rails/generators/rails/app/app_generator"
+require "rails/generators/rails/model/model_generator"
 
-module DummyGeneratorsTest
-  class DummyGeneratorTest < Test::Unit::TestCase
-    include ActiveSupport::Testing::Isolation
+class DummyGeneratorTest < Rails::Generators::TestCase
+  destination File.join(Rails.root)
+  tests Dummy::DataGenerator
+  arguments []
 
-    def setup
-      build_app
-      boot_rails
+  setup :prepare_destination
 
-      app_file "app/models/parent.rb", <<-MODEL
-      class Parent
-        has_many :sons
-        has_many :daughters
-      end
-      MODEL
-      
-      app_file "app/models/son.rb", <<-MODEL
-      class Son
-        belongs_to :parent
-      end
-      MODEL
-      
-      app_file "app/models/daughter.rb", <<-MODEL
-      class Daughter
-        belongs_to :parent
-      end
-      MODEL
-      
-      app_file "app/models/banana.rb", <<-MODEL
-      class Banana
-      end
-      MODEL
-    end
-  end
-  
-  test "it generates the result files" do
-    
+  test 'Dummy data is generated' do
+    Rails::Generators::AppGenerator.start(["#{Rails.root}"])
+    Rails::Generators::ModelGenerator.start(["name:string age:integer", "ActiveRecord"])
+    run_generator
   end
 end
+
