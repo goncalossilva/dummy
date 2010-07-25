@@ -6,6 +6,7 @@ require "dummy/lorem"
 require "dummy/name"
 require "dummy/phone_number"
 require "dummy/geolocation"
+require "generators/dummy_generator"
 
 module Dummy
   extend self
