@@ -1,3 +1,3 @@
-A simple gem template
+Soon.
 
 Copyright (c) 2010 Gonçalo Silva

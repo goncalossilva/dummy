@@ -11,7 +11,7 @@ class DummyGeneratorTest < Rails::Generators::TestCase
 
   test 'Dummy data is generated' do
     Rails::Generators::AppGenerator.start(["#{Rails.root}"])
-    Rails::Generators::ModelGenerator.start(["name:string age:integer", "ActiveRecord"])
+    
     run_generator
   end
 end
