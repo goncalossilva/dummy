@@ -97,28 +97,18 @@ module Dummy
         end.max*options.growth_ratio # **info[:associations].size
       end
 
-      @models[model][:record_amount] += amount.to_i
+      @models[model][:record_amount] = amount.to_i
       stacked_models.delete(model)
       models.delete(model)
     end
 
-    def remove_if_subclass(model)
-      if @models.keys.include?(model.superclass)
-        @models[model.superclass][:record_amount] += @models[model][:record_amount]
-        @models.delete(model)
-      end
-    end
-
     def generate_and_write_data
       empty_directory "test/dummy"
+      data = Hash.new
 
       @models.each do |model, info|
-        fixtures = Hash.new
         name = model.to_s.underscore
-        file = File.new("test/dummy/#{model.table_name}.yml","w")
-
-        file.write("# #{model.to_s} data generated automatically by dummy (#{info[:record_amount]} records).\n")
-
+        
         (0..info[:record_amount]-1).each do |num|
           key_value = Hash.new
           fixture_data = Hash.new
@@ -127,14 +117,21 @@ module Dummy
             key_value = generate_record_data(name, info, column)
             fixture_data.merge!(key_value) unless key_value.nil?
           end
-
-          fixtures.merge!({ "#{name}_#{num}" => fixture_data })
+          
+          data[model.table_name] = Hash.new if data[model.table_name].nil?
+          data[model.table_name].merge!({ "#{name}_#{num}" => fixture_data })
         end
 
-        YAML.dump(fixtures, file)
-        file.close
         say_status :successful, "Generate #{info[:record_amount]} records for '#{name}'"
       end
+      
+      data.each do |name, fixtures|
+        file = File.new("test/dummy/#{name}.yml", "w")
+        file.write("# #{name} data generated automatically by dummy (#{fixtures.size} records).\n")
+        YAML.dump(fixtures, file)
+        file.close
+      end
+      say_status :successful, "Store fixtures"
     end
 
     def generate_record_data(name, info, column)
