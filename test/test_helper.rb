@@ -12,3 +12,12 @@ module Rails
   end
 end
 
+def create_test_application
+  Rails::Generators::AppGenerator.start(["#{Rails.root}"])
+  
+  templates_dir = File.expand_path("generators/templates", File.dirname(__FILE__))
+  %w(child parent grand_parent).each do |model|
+    copy_file "#{templates_dir}/#{model}.rb", "#{Rails.root}/app/models/#{model}.rb"
+  end
+end
+

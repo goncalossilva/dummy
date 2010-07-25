@@ -8,10 +8,9 @@ class DummyGeneratorTest < Rails::Generators::TestCase
   arguments []
 
   setup :prepare_destination
+  setup :create_test_application
 
-  test 'Dummy data is generated' do
-    Rails::Generators::AppGenerator.start(["#{Rails.root}"])
-    
+  test 'Dummy data is generated' do    
     run_generator
   end
 end
