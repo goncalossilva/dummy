@@ -1,12 +1,14 @@
+require 'digest/md5'
+
 module Dummy
   module Internet
     extend self
   
     def email
-      "#{user_name}@#{HOSTS.rand}"
+      "#{username}@#{HOSTS.rand}"
     end
 
-    def user_name
+    def username
       case rand(2)
       when 0
         Name.first_name.gsub(/\W/, '').downcase
@@ -16,6 +18,10 @@ module Dummy
         parts.downcase!
         parts
       end
+    end
+    
+    def password
+      Digest::MD5.hexdigest(Dummy::Lorem.sentence)
     end
     
     private
