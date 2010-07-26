@@ -66,7 +66,7 @@ module Dummy
       Dummy::Address.zip_code
     when /city|town/ then
       Dummy::Address.city
-    when /address|residence|residency/ then
+    when /street|address|residence|residency/ then
       Dummy::Address.street_address
     when /company|enterprise|business|firm/ then
       case field.gsub(/company|enterprise|business|firm/, "")
@@ -76,9 +76,9 @@ module Dummy
         Dummy::Company.bs
       end
     when /^lat/ then
-      Dummy::Geolocation.lat
+      Dummy::Geolocation.lat.to_s
     when /^lon|^lng/ then
-      Dummy::Geolocation.lng
+      Dummy::Geolocation.lng.to_s
     when /mail/ then
       Dummy::Internet.email
     when /password|pwd/ then
@@ -107,7 +107,16 @@ module Dummy
   end
   
   def magic_integer(field)
-    rand(1000)
+    case field
+    when /phone/
+      Dummy::PhoneNumber.short_phone_number.to_i
+    when /zip|postal/
+      Dummy::Address.zip_code.to_i
+    when /street|road|address|residence|residency/
+      Dummy.numerify(("#" * rand(3)) << "###").to_i
+    else
+      rand(1000)
+    end
   end
   
   def magic_date(field)
