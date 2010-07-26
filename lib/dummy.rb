@@ -120,7 +120,14 @@ module Dummy
   end
   
   def magic_date(field)
-    Date.today.to_s
+    difference = case field
+    when /_on/
+      rand(365*2)
+    when /birth/
+      365+rand(365*50)
+    else
+      0
+    (Date.today - difference).to_s
   end
   
   def magic_float(field)
