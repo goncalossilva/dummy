@@ -4,16 +4,16 @@ module Dummy
     extend self
 
     def sentence
-      s = words.join(' ').capitalize!
+      s = words.join(" ").capitalize!
       "#{s}."
     end
 
     def sentences
-      (1..3).map { sentence }.join(' ')
+      (1..3).map { sentence }.join(" ")
     end
 
     def paragraph
-      (1..3).map { sentences }.join(' ')
+      (1..3).map { sentences }.join(" ")
     end
 
     def paragraphs
