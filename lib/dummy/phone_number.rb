@@ -26,9 +26,5 @@ module Dummy
     def short_phone_number
       Dummy.numerify("###-###-####")
     end
-    
-    def numeric_phone_number
-      Dummy.numerify("##########").to_i
-    end
   end
 end
