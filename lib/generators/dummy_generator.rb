@@ -122,32 +122,35 @@ module Dummy
           data[model.table_name].merge!({ "#{name}_#{num}" => fixture_data })
         end
 
-        say_status :successful, "Generate #{info[:record_amount]} records for '#{name}'"
+        say_status :successful, "generate #{info[:record_amount]} records for '#{name}'"
       end
       
       data.each do |name, fixtures|
-        file = File.new("test/dummy/#{name}.yml", "w")
-        file.write("# #{name} data generated automatically by dummy (#{fixtures.size} records).\n")
-        YAML.dump(fixtures, file)
-        file.close
+        content = "# '#{name}' data generated automatically by dummy at \
+          #{Time.now.strftime("%H:%M %m/%d/%Y")} (#{fixtures.size} records).\n"
+        content << YAML.dump(fixtures)
+        
+        create_file "test/dummy/#{name}.yml", content
       end
-      say_status :successful, "Store fixtures"
+      say_status :successful, "store fixtures"
     end
 
     def generate_record_data(name, info, column)
-      if (column.name =~ /_at$/ and column.type == :datetime) or column.name == "id"
+      column_name = column.name
+      if(column_name =~ /_at$/ and column.type == :datetime) or column_name == "id"
         return
       end
 
-      associated_model = associated_class_name(info, column.name)
+      associated_model = associated_class_name(info, column_name)
 
       if associated_model
         val = generate_association_data(associated_model)
+        column_name.gsub!(/_id$/, "")
 	    else
 		    val = generate_regular_data(column)
       end
 
-	    {column.name => val}
+	    {column_name => val}
     end
 
     def associated_class_name(info, name)
