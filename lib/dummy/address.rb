@@ -26,7 +26,7 @@ module Dummy
     end
 
     def street_address
-      str = ( "#" * rand(3) ) << ("### %s" % street_name)
+      str = ("#" * rand(3)) << "### #{street_name}"
 
       Dummy.numerify(str)
     end

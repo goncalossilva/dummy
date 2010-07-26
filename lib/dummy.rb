@@ -137,8 +137,8 @@ module Dummy
       Dummy::Geolocation.lat
     when /^lon|^lng/ then
       Dummy::Geolocation.lng
-    when 
-      Dummy.numerify(("#" * rand(4)) << "#.#" << ("#" * rand(8)))
+    else 
+      Dummy.numerify(("#" * rand(4)) << "#.#" << ("#" * rand(8))).to_f
     end
   end
 end
