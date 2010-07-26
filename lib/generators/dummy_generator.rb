@@ -23,7 +23,7 @@ module Dummy
 
     def initialize_application
       require File.expand_path("#{Rails.root}/config/environment.rb")
-      say_status :successful, "Initialize Rails application"
+      say_status :successful, "initialize Rails application"
     end
 
     def generate_dummy_data
