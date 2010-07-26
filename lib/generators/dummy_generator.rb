@@ -166,29 +166,14 @@ module Dummy
     end
 
     def generate_regular_data(column)
-      case column.type
-		    when :string then
-			    case (1 + rand(3))
-				    when 1 then
-					    val = Dummy::Name.name
-				    when 2 then
-					    val = Dummy::Lorem.sentence
-				    when 3 then
-					    val = Dummy::PhoneNumber.phone_number
-			    end
-		    when :text then
-			    val = Dummy::Lorem.paragraph
-		    when :integer then
-			    val = rand(1000)
-		    when :date, :datetime then
-			    val = Date.today.to_s
-		    when :decimal, :float then
-			    val = rand(50).to_s + "." + (1000+rand(2000)).to_s
-		    when :boolean then
-		      val = rand(2)
-		    else
-			    say_status :failed, "data generation for '#{column.name}' with type '#{column.type.to_s.downcase}'", :red
-	    end
+      val = Dummy.magic_data(column.name, column.type)
+      
+      if not val
+        say_status :failed, "data generation for '#{column.name}' with type '#{column.type.to_s.downcase}'", :red
+        ""
+      else
+        val
+      end
     end
 
     def copy_rake_file
