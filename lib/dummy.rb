@@ -121,17 +121,25 @@ module Dummy
   
   def magic_date(field)
     difference = case field
-    when /_on/
+    when /_on$/
       rand(365*2)
     when /birth/
       365+rand(365*50)
     else
       0
+    end
     (Date.today - difference).to_s
   end
   
   def magic_float(field)
-    val = rand(50).to_s + "." + (1000+rand(2000)).to_s
+    case field
+    when /^lat/ then
+      Dummy::Geolocation.lat
+    when /^lon|^lng/ then
+      Dummy::Geolocation.lng
+    when 
+      Dummy.numerify(("#" * rand(4)) << "#.#" << ("#" * rand(8)))
+    end
   end
 end
 
