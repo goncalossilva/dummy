@@ -15,7 +15,7 @@ module DummyInternetTests
     end
     
     test "generates valid domains" do
-      assert_match /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/, Dummy::Internet.url
+      assert_match /(http|https|ftp):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/, Dummy::Internet.url
     end
   end
 end

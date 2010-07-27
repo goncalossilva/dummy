@@ -26,13 +26,20 @@ module Dummy
     
     def url
       name = ""
+      protocol = "http"
+      
       case rand(5)
       when 0, 1 then name = Name.first_name.gsub(/\W/, "").downcase
       when 2, 3 then name = Name.last_name.gsub(/\W/, "").downcase
       when 4 then name = "#{Name.first_name.gsub(/\W/, '').downcase}.#{Name.last_name.gsub(/\W/, '').downcase}"
       end
       
-      "#{name}.#{DOMAINS.rand}"
+      case rand(10)
+      when 0 then protocol = "https"
+      when 1 then protocol = "ftp"
+      end
+      
+      "#{protocol}://#{name}.#{DOMAINS.rand}"
     end    
     private
 
