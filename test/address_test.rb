@@ -21,5 +21,9 @@ module DummyAddressTests
     test "generates a valid street address" do
       assert_match VALIDATE[:street_address], Dummy::Address.street_address
     end
+    
+    test "generates a valid neighborhood" do
+      assert_match VALIDATE[:neighborhood], Dummy::Address.neighborhood
+    end
   end
 end
