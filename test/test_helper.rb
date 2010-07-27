@@ -1,5 +1,5 @@
 require "rubygems"
-require File.expand_path(File.dirname(__FILE__) + "/../lib/dummy")
+require "dummy"
 require "generators/dummy_generator"
 require "test/unit"
 require "rails/all"
