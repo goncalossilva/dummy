@@ -11,9 +11,9 @@ module Dummy
     def username
       case rand(2)
       when 0
-        Name.first_name.gsub(/\W/, '').downcase
+        Name.first_name.gsub(/\W/, "").downcase
       when 1
-        parts = [ Name.first_name, Name.last_name ].each {|n| n.gsub!(/\W/, '') }
+        parts = [ Name.first_name, Name.last_name ].each {|n| n.gsub!(/\W/, "") }
         parts = parts.join %w(. _)[Kernel.rand(2)].dup
         parts.downcase!
         parts
@@ -24,8 +24,19 @@ module Dummy
       Digest::MD5.hexdigest(Dummy::Lorem.sentence)
     end
     
+    def url
+      name = ""
+      case rand(5)
+      when 0, 1 then name = Name.first_name.gsub(/\W/, "").downcase
+      when 2, 3 then name = Name.last_name.gsub(/\W/, "").downcase
+      when 4 then name = "#{Name.first_name.gsub(/\W/, '').downcase}.#{Name.last_name.gsub(/\W/, '').downcase}"
+      end
+      
+      "#{name}.#{DOMAINS.rand}"
+    end    
     private
 
     HOSTS = %w(gmail.com yahoo.com hotmail.com)
+    DOMAINS = %w(com us co.uk info net name biz)
   end
 end

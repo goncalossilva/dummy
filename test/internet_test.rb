@@ -9,5 +9,13 @@ module DummyInternetTests
     test "generates valid user names" do
       assert_match /^([^\s]+)$/i, Dummy::Internet.user_name
     end
+    
+    test "generates a valid password (MD5)" do
+      assert_match /\S{32}/, Dummy::Internet.password
+    end
+    
+    test "generates valid domains" do
+      assert_match /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/, Dummy::Internet.url
+    end
   end
 end
