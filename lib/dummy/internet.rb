@@ -40,7 +40,8 @@ module Dummy
       end
       
       "#{protocol}://#{name}.#{DOMAINS.rand}"
-    end    
+    end
+      
     private
 
     HOSTS = %w(gmail.com yahoo.com hotmail.com)

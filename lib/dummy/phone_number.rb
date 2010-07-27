@@ -23,7 +23,7 @@ module Dummy
       end
     end
 
-    def short_phone_number
+    def phone_number_short
       Dummy.numerify("###-###-####")
     end
   end

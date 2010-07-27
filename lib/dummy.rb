@@ -88,7 +88,7 @@ module Dummy
       when /phone/ then
         case field.gsub(/phone/, "")
         when /short|abbreviation|abbr|small/ then
-          Dummy::PhoneNumber.short_phone_number
+          Dummy::PhoneNumber.phone_number_short
         else
           Dummy::PhoneNumber.phone_number
         end
@@ -111,7 +111,7 @@ module Dummy
     def magic_integer(field)
       case field
       when /phone/
-        Dummy::PhoneNumber.short_phone_number.to_i
+        Dummy::PhoneNumber.phone_number_short.to_i
       when /zip|postal/
         Dummy::Address.zip_code.to_i
       when /street|road|address|residence|residency/
