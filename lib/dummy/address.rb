@@ -132,7 +132,7 @@ module Dummy
     NEIGHBORHOOD = ["East of Telegraph Road", "North Norridge", "Northwest Midlothian/Midlothian Country Club",
       "Mott Haven/Port Morris", "Kingsbridge Heights", "Bronxdale", "Pennypack", "Bridesburg",
       "Allegheny West", "Bushwick South", "Dyker Heights", "Ocean Parkway South", "Summerlin North",
-      "Seven Hills Area", "Greater Las Vegas National", "phoenix", "Central Chandler", "South of Bell Road",
+      "Seven Hills Area", "Greater Las Vegas National", "Phoenix", "Central Chandler", "South of Bell Road",
       "River Heights", "White Plains Central", "Mount Kisco West", "Pound Ridge East", "Babylon Bayside",
       "Sagaponack Seaside", "South of Lake Ave", "Far Rockaway/Bayswater", "Jamaica Estates/Holliswood",
       "Murray Hill", "East Renton", "Renton West", "Auburn North", "Northwoods West", "Florissant West",
