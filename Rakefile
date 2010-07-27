@@ -24,6 +24,14 @@ task :clean do
   FileUtils.rm_rf "pkg"
 end
 
+desc "Check syntax"
+task :syntax do
+  Dir["**/*.rb"].each do |file|
+    print "#{file}: "
+    system("ruby -c #{file}")
+  end
+end
+
 namespace :test do
   desc "Run all tests"
   task :all do
