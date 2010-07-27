@@ -22,11 +22,15 @@ def create_test_application
 end
 
 VALIDATE = {
-  :zip_code => /^([0-9]{5}-[0-9]{4}|[0-9]{5})$/,
+  :zip_code => /^([0-9]{5}-?[0-9]{4}|[0-9]{5})$/,
   :us_state => /^([A-Z][a-z ]+)+$/,
   :us_state_short => /^[A-Z]{2}$/,
-  :street_name => /^[A-Z][a-z"]+ [A-Z][a-z]+$/,
-  :street_address => /^\d+ [A-Z][a-z"]+ [A-Z][a-z]+$/,
+  :street_name => /^[A-Za-z' ]*[A-Z][a-z ]+$/,
+  :street_address => /^\d+ [A-Za-z' ]*[A-Z][a-z ]+$/,
+  :neighborhood => /^([A-Z][a-z \/-]+)+$/,
+  :company_name => /^[A-Za-z\W ]+$/,
+  :company_catch_phrase => /^([a-z0-9\-',\/ ]+)+$/i,
+  :company_bs => /^([a-z0-9\-',\/ ]+)+$/i,
   :geolocation => /^-?[0-9]{1,3}(\.[0-9]{1,9})?$/,
   :latitude_max => 9e10,
   :latitude_min => -9e10,
