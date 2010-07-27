@@ -34,31 +34,19 @@ module Dummy
       end
     end
     
-    def magic_string(field, type=:string)
+    def magic_string(field, type = :string)
       case field
-      when /name/ then
-        case field.gsub(/name/, "")
-        when /company|enterprise|business|firm/ then
-          Dummy::Company.name
-        when /street|road/ then
-          Dummy::Address.street_name
-        when /neighbou?rhood|neighbou?rship|district|vicinity/ then
-          Dummy::Address.neighborhood
-        when /first|initial|primary/ then
-          Dummy::Name.first_name
-        when /last|latter|family|sur/ then
-          Dummy::Name.last_name
-        when /user|usr|login/ then
-          Dummy::Internet.username
+      when /neighbou?rhood|neighbou?rship|district|vicinity/ then
+        Dummy::Address.neighborhood
+      when /phone/ then
+        case field
+        when /short|abbreviation|abbr|small/ then
+          Dummy::PhoneNumber.phone_number_short
         else
-          Dummy::Name.name
+          Dummy::PhoneNumber.phone_number
         end
-      when /url|uri|href|link|page/ then
-        Dummy::Internet.url
-      when /login|user|usr/ then
-        Dummy::Internet.username
       when /state/ then
-        case field.gsub(/state/, "")
+        case field
         when /short|abbreviation|abbr|small/ then
           Dummy::Address.us_state_short
         else
@@ -68,30 +56,43 @@ module Dummy
         Dummy::Address.zip_code
       when /city|town/ then
         Dummy::Address.city
-      when /street|address|residence|residency/ then
-        Dummy::Address.street_address
-      when /company|enterprise|business|firm/ then
-        case field.gsub(/company|enterprise|business|firm/, "")
-        when /motto|description|slogan|lemma|punch|line/ then
-          Dummy::Company.catch_phrase
-        else
-          Dummy::Company.bs
-        end
-      when /^lat/ then
-        Dummy::Geolocation.lat.to_s
-      when /^lon|^lng/ then
-        Dummy::Geolocation.lng.to_s
       when /mail/ then
         Dummy::Internet.email
-      when /password|pwd/ then
+      when /password|pass|pwd/ then
         Dummy::Internet.password
-      when /phone/ then
-        case field.gsub(/phone/, "")
-        when /short|abbreviation|abbr|small/ then
-          Dummy::PhoneNumber.phone_number_short
+      when /url|uri|href|link|page|site/ then
+        Dummy::Internet.url
+      when /address|residence|residency/ then
+        Dummy::Address.street_address
+      when /road|street/ then
+        Dummy::Address.street_name
+      when /user|usr|login/ then
+        Dummy::Internet.username
+      when /name/ then
+        case field
+        when /company|enterprise|business|firm|school|college/ then
+          Dummy::Company.name
+        when /first|initial|primary/ then
+          Dummy::Name.first_name
+        when /last|latter|family|sur/ then
+          Dummy::Name.last_name
         else
-          Dummy::PhoneNumber.phone_number
+          Dummy::Name.name
         end
+      when /company|enterprise|business|firm|school|college/ then
+        case field
+        when /motto|description|slogan|lemma|punch|line/ then
+          case rand(2)
+          when 0 then Dummy::Company.catch_phrase
+          when 1 then Dummy::Company.bs
+          end
+        else
+          Dummy::Company.name
+        end
+      when /^(.*[-_:+ ])*lat/ then
+        Dummy::Geolocation.lat.to_s
+      when /^(.*[-_:+ ])*(lon|lng)/ then
+        Dummy::Geolocation.lng.to_s
       else
         case type
         when :string then
@@ -111,9 +112,13 @@ module Dummy
     def magic_integer(field)
       case field
       when /phone/
-        Dummy::PhoneNumber.phone_number_short.to_i
+        p = Dummy::PhoneNumber.phone_number_short.gsub("-", "")
+        (p = p.to_i + 1000000000) if p[0] == "0"
+        p
       when /zip|postal/
-        Dummy::Address.zip_code.to_i
+        z = Dummy::Address.zip_code
+        (z = z.to_i + 10000) if z[0] == "0"
+        z
       when /street|road|address|residence|residency/
         Dummy.numerify(("#" * rand(3)) << "###").to_i
       else
@@ -126,7 +131,7 @@ module Dummy
       when /_on$/
         rand(365*2)
       when /birth/
-        365+rand(365*50)
+        365 + rand(365 * 50)
       else
         0
       end
@@ -135,9 +140,9 @@ module Dummy
     
     def magic_float(field)
       case field
-      when /^lat/ then
+      when /^(.*[-_:+ ])*lat/ then
         Dummy::Geolocation.lat
-      when /^lon|^lng/ then
+      when /^(.*[-_:+ ])*(lon|lng)/ then
         Dummy::Geolocation.lng
       else 
         Dummy.numerify(("#" * rand(4)) << "#.#" << ("#" * rand(8))).to_f
