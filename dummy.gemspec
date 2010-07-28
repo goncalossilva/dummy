@@ -15,5 +15,5 @@ Gem::Specification.new do |gem|
 
   gem.files        = Dir["{lib}/**/*.rb", "{lib}/**/*.rake", "LICENSE", "*.md"]
   
-  gem.require_path = 'lib'
+  gem.require_path = "lib"
 end

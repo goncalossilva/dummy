@@ -126,8 +126,8 @@ module Dummy
       end
       
       data.each do |name, fixtures|
-        content = "# '#{name}' data generated automatically by dummy at \
-          #{Time.now.strftime("%H:%M %m/%d/%Y")} (#{fixtures.size} records).\n"
+        content = "# '#{name}' data generated automatically by dummy at #{Time.now.strftime("%H:%M %m/%d/%Y")} (#{fixtures.size} records).\n"
+        
         content << YAML.dump(fixtures)
         
         create_file "test/dummy/#{name}.yml", content
