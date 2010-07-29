@@ -7,9 +7,22 @@ Description:
     If the base amount is 10, the growth ratio is 2.0, GrandParents have many
     Parents and Parents have many Children, the generator will create dummy
     data for 10 GrandParents, 20 Parents and 40 Children.
+    
+    It also provides a rake file for importing the generated data.
 
 Example:
     `rails generate dummy:data`
 
-    It creates YAML fixtures for every model under:
-        test/dummy/
+    Creates YAML fixtures for every model and a rake file for importing the data:
+    
+        Fixtures: test/dummy/*
+        Rakefile: lib/tasks/dummy.rake
+        
+    `rails generate dummy:data --growth-factor=1.0 --base-amount=5`
+
+    Creates YAML fixtures for every model containing 5 fixtures each.
+    
+    `rails generate dummy:data --growth-factor=3.0`
+
+    Creates YAML fixtures for every model containing N fixtures which can range 
+    from 10 to 3.0*D where D is the association depth of a given model.
