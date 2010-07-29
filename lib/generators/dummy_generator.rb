@@ -8,6 +8,7 @@ module Dummy
     def self.source_root
       @source_root ||= File.expand_path("../templates", __FILE__)
     end
+    
     class_option :base_amount, :type => :numeric, :default => 10,
                 :desc => "The base amount of records to generate for each model."
     class_option :growth_ratio, :type => :numeric, :default => 2.0,
@@ -168,16 +169,16 @@ module Dummy
     def generate_regular_data(column)
       val = Dummy.magic_data(column.name, column.type)
       
-      if not val
+      if val
+        val
+      else
         say_status :failed, "data generation for '#{column.name}' with type '#{column.type.to_s.downcase}'", :red
         ""
-      else
-        val
       end
     end
 
     def copy_rake_file
-      copy_file "benchmark.rake", "lib/tasks/benchmark.rake"
+      copy_file "dummy.rake", "lib/tasks/dummy.rake"
     end
   end
 end

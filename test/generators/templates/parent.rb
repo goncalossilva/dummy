@@ -17,6 +17,4 @@ class Parent < ActiveRecord::Base
   
   belongs_to :grand_parent
   has_many :children
-  #has_many :sons, :through => :children
-  #has_many :daughters, :through => :children
 end
