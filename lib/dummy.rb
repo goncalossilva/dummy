@@ -34,6 +34,8 @@ module Dummy
       end
     end
     
+    private
+    
     def magic_string(field, type = :string)
       case field
       when /neighbou?rhood|neighbou?rship|district|vicinity/ then
