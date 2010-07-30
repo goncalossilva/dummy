@@ -13,6 +13,8 @@ module Dummy
                 :desc => "The base amount of records to generate for each model."
     class_option :growth_ratio, :type => :numeric, :default => 2.0,
                 :desc => "The growth ratio of each model, according to its associations."
+    class_option :manual_amounts, :type => :boolean, :default => false,
+                :desc => "Manually set the amount of records for each model."
 
     def install_dummy
       initialize_application
@@ -96,6 +98,11 @@ module Dummy
         amount = info[:associations].map do |assoc|
           @models[assoc[:model]][:record_amount]
         end.max*options.growth_ratio # **info[:associations].size
+      end
+      
+      if options.manual_amounts
+        user_defined = ask("Number of records for #{model} (default: #{amount}): ")
+        amount = user_defined unless user_defined.empty?
       end
 
       @models[model][:record_amount] = amount.to_i
