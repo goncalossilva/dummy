@@ -35,11 +35,11 @@ Another less conventional way of using dummy is to directly use its magic data g
 Example:
     require "dummy"
     
-    Dummy.magic_data("mail", :string) => "nyasia@hotmail.com" 
-    Dummy.magic_data("company_motto", :string) => "engineer intuitive functionalities" 
-    Dummy.magic_data("state", :string) => "Louisiana" 
-    Dummy.magic_data("lat", :float) => -86.718683637 
-    Dummy.magic_data("phone", :integer) => "9462876293" 
+    Dummy.magic_data("mail", :string) => "nyasia@hotmail.com"
+    Dummy.magic_data("company_motto", :string) => "engineer intuitive functionalities"
+    Dummy.magic_data("state", :string) => "Louisiana"
+    Dummy.magic_data("lat", :float) => -86.718683637
+    Dummy.magic_data("phone", :integer) => 9462876293
 
 
 ## More information
