@@ -1,4 +1,5 @@
 require "rubygems"
+require "dummy/core_ext"
 require "dummy/address"
 require "dummy/company"
 require "dummy/internet"
@@ -152,10 +153,3 @@ module Dummy
     end
   end
 end
-
-class Array
-  def rand
-    self[super(self.length)]
-  end
-end
-
