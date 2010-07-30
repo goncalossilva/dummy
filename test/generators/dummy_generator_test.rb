@@ -12,7 +12,7 @@ class DummyGeneratorTest < Rails::Generators::TestCase
     run_generator
     
     ["children", "parents", "grand_parents"].each do |model|
-      assert_file "test/dummy/#{model}.yml"
+      assert_file "test/dummy/data/#{model}.yml"
     end
     
     all_options = {%w()    => [{:n => "children", :a => "40"}, 
@@ -30,14 +30,19 @@ class DummyGeneratorTest < Rails::Generators::TestCase
     %w(--growth-factor=4.0 --base-amount=2) =>  
                               [{:n => "children", :a => "8"}, 
                               {:n => "parents", :a => "4"}, 
-                              {:n => "grand_parents", :a => "2"}]}
+                              {:n => "grand_parents", :a => "2"}],
+    %w(--output-folder test/dummy_dinassour) =>
+                              [{:n => "children", :a => "40", :f => "test/dummy_dinassour"},
+                              {:n => "parents", :a => "20", :f => "test/dummy_dinassour"}, 
+                              {:n => "grand_parents", :a => "10", :f => "test/dummy_dinassour"}]}
     
     all_options.each do |options, results|
       clean_dummy
       run_generator options
       
       results.each do |data|
-        header_line = File.read("test/dummy/#{data[:n]}.yml").match(/([^\n]+)/)[0]
+        folder = data[:f] || "test/dummy/data"
+        header_line = File.read("#{folder}/#{data[:n]}.yml").match(/([^\n]+)/)[0]
         assert_nil header_line.index("\n")
         
         regex = /# '(\w+)' data generated automatically by dummy at .+ \((\d+) records\)\./
