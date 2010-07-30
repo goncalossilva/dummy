@@ -15,6 +15,8 @@ module Dummy
                 :desc => "The growth ratio of each model, according to its associations."
     class_option :manual_amounts, :type => :boolean, :default => false,
                 :desc => "Manually set the amount of records for each model."
+    class_option :output_folder, :type => :string, :default => "test/dummy/data",
+                :desc => "Folder to use when outputting the resulting YAML files."
 
     def install_dummy
       initialize_application
@@ -111,7 +113,7 @@ module Dummy
     end
 
     def generate_and_write_data
-      empty_directory "test/dummy"
+      empty_directory options.output_folder
       data = Hash.new
 
       @models.each do |model, info|
@@ -138,7 +140,7 @@ module Dummy
         
         content << YAML.dump(fixtures)
         
-        create_file "test/dummy/#{name}.yml", content
+        create_file "#{options.output_folder}/#{name}.yml", content
       end
       say_status :successful, "store fixtures"
     end
@@ -185,7 +187,7 @@ module Dummy
     end
 
     def copy_rake_file
-      copy_file "dummy.rake", "lib/tasks/dummy.rake"
+      template "dummy.rake", "lib/tasks/dummy.rake"
     end
   end
 end
