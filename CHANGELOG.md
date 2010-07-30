@@ -27,7 +27,20 @@ Features:
 
 Features:
   - added tests for the data generators and rails generator
-  - fixed multiple bugs and added small improvements
+  - small improvements
   - added documentation
+  
+Fixes:
+  - various minor bugs
+  
+## 0.5.1 (July 29, 2010)
+
+Fixes:
+  - fixed a bug where magic integers were being returned as strings
+  
+## 0.5.2 (July 30, 2010)
+
+Features:
+  - added option to manually configure the amount of records to generate for each model
   
 

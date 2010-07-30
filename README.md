@@ -21,6 +21,9 @@ Now you have access to the generator:
 You can also change the base amount of records and the growth ratio (what these mean exactly is explained latter on):
     rails generate dummy:data --base-amount=5 --growth-ratio=1.5
     
+And you can manually define the amount of records to generate for each model (or just accept the defaults):
+    rails generate dummy:data --manual-amounts
+    
 The fixtures are stored in _test/dummy/_ while a rake file is placed in _lib/tasks/dummy.rake_. It allows you to import the generated data into the database:
     RAILS_ENV="dummy" rake dummy:data:import
 
