@@ -116,11 +116,11 @@ module Dummy
       when /phone/
         p = Dummy::PhoneNumber.phone_number_short.gsub("-", "")
         (p = p.to_i + 1000000000) if p[0] == "0"
-        p
+        p.to_i
       when /zip|postal/
         z = Dummy::Address.zip_code
         (z = z.to_i + 10000) if z[0] == "0"
-        z
+        z.to_i
       when /street|road|address|residence|residency/
         Dummy.numerify(("#" * rand(3)) << "###").to_i
       else
