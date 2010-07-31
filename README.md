@@ -81,7 +81,8 @@ The generator will create dummy data for 10 _GrandParents_, 20 _Parents_ and 40 
 ### Caveats
 
 Dummy has a few caveats which are on the TODO list. Those are:
-* It is an English speaking gem. It will not be smart at all if your column is named _telefone_ (Portuguese for _phone_) or if you want a zip code from outside the US.
-* It will generate valid emails, latitudes, street addresses, etc, but it doesn't care about your model validations.
+
+*   It is an English speaking gem. It will not be smart at all if your column is named _telefone_ (Portuguese for _phone_) or if you want a zip code from outside the US.
+*   It will generate valid emails, latitudes, street addresses, etc, but it doesn't care about your model validations.
 
 Copyright (c) 2010 Gonçalo Silva
