@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
 
   gem.required_rubygems_version = ">= 1.3.7"
   
-  gem.add_dependency "rails", ">= 3.0.0.rc"
+  gem.add_dependency "rails", ">= 3.0.0.beta"
 
   gem.files        = Dir["{lib}/**/*.rb", "{lib}/**/*.rake", "LICENSE", "*.md"]
   
