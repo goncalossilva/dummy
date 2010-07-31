@@ -1,6 +1,5 @@
 require "rubygems"
 require "dummy"
-require "generators/dummy_generator"
 require "test/unit"
 require "fileutils"
 require "rails/all"
@@ -29,7 +28,7 @@ def create_test_application
 end
 
 def clean_dummy
-  FileUtils.rm_rf(["#{Rails.root}/test/dummy/", "#{Rails.root}/lib/tasks/benchmark.rake"])
+  FileUtils.rm_rf(["#{Rails.root}/test/dummy/", "#{Rails.root}/lib/tasks/dummy.rake"])
 end
 
 def clean_tmp

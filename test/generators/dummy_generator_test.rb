@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + "/../test_helper")
+require File.expand_path("../test_helper", File.dirname(__FILE__))
 
 class DummyGeneratorTest < Rails::Generators::TestCase
   destination File.join(Rails.root)
