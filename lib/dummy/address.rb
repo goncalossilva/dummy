@@ -3,7 +3,7 @@ module Dummy
     extend self
     
     def zip_code
-      Dummy.numerify ZIP_FORMATS.rand
+      ZIP_FORMATS.rand.numerify
     end
 
     def us_state
@@ -28,7 +28,7 @@ module Dummy
     def street_address
       str = ("#" * rand(3)) << "### #{street_name}"
 
-      Dummy.numerify(str)
+      str.numerify
     end
 
     def neighborhood

@@ -1,1 +1,2 @@
-require File.expand_path("core_ext/array", File.dirname(__FILE__))
+require "dummy/core_ext/array"
+require "dummy/core_ext/string"

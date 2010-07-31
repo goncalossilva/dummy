@@ -11,18 +11,6 @@ require "generators/dummy_generator"
 
 module Dummy
   class << self
-
-    def numerify(number_string)
-      number_string.gsub(/#/) { rand(10).to_s }
-    end
-
-    def letterify(letter_string)
-      letter_string.gsub(/\?/) { ("a".."z").to_a.rand }
-    end
-
-    def bothify(string)
-      letterify(numerify(string))
-    end
     
     def magic_data(field, type)
       case type
@@ -123,7 +111,7 @@ module Dummy
         (z = z.to_i + 10000) if z[0] == "0"
         z.to_i
       when /street|road|address|residence|residency/
-        Dummy.numerify(("#" * rand(3)) << "###").to_i
+        (("#" * rand(3)) << "###").numerify.to_i
       else
         rand(1000)
       end
@@ -148,7 +136,7 @@ module Dummy
       when /^(.*[-_:+ ])*(lon|lng)/ then
         Dummy::Geolocation.lng
       else 
-        Dummy.numerify(("#" * rand(4)) << "#.#" << ("#" * rand(8))).to_f
+        (("#" * rand(4)) << "#.#" << ("#" * rand(8))).numerify.to_f
       end
     end
   end

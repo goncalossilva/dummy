@@ -3,7 +3,7 @@ module Dummy
     extend self
 
     def phone_number
-      Dummy.numerify case rand(20)
+      format = case rand(20)
       when      0 then "###-###-#### x#####"
       when      1 then "###-###-#### x####"
       when      2 then "###-###-#### x###"
@@ -21,10 +21,12 @@ module Dummy
       when     17 then "1-###-###-#### x###"
       when 18..19 then "1-###-###-####"
       end
+      
+      format.numerify
     end
 
     def phone_number_short
-      Dummy.numerify("###-###-####")
+      "###-###-####".numerify
     end
   end
 end
