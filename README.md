@@ -18,11 +18,16 @@ Add the following to the Gemfile of your Rails 3 application:
 Now you have access to the generator:
     rails generate dummy:data
     
-You can also change the base amount of records and the growth ratio (what these mean exactly is explained latter on):
-    rails generate dummy:data --base-amount=5 --growth-ratio=1.5
+You can change the base amount of records and the growth ratio (what these mean exactly is explained latter on):
+    rails generate dummy:data --base-amount 5 --growth-ratio 1.5
     
-And you can manually define the amount of records to generate for each model (or just accept the defaults):
+Also, you can manually define the amount of records to generate for each model (or just accept the defaults):
     rails generate dummy:data --manual-amounts
+    
+And you can manually set the output folder for the YAML files (which defaults to test/dummy/data):
+    rails generate dummy:data --output-folder test/awesome_fixtures
+    
+Feel free to mix all of these options.
     
 The fixtures are stored in _test/dummy/_ while a rake file is placed in _lib/tasks/dummy.rake_. It allows you to import the generated data into the database:
     RAILS_ENV="dummy" rake dummy:data:import

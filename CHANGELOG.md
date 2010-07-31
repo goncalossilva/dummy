@@ -43,4 +43,13 @@ Fixes:
 Features:
   - added option to manually configure the amount of records to generate for each model
   
+## 0.6 (July 31, 2010)
+
+Features:
+  - added option to define the output folder where the YAML files are placed
+  
+Fixes:
+  - Removed unused core extensions (for now)
+  - fixed some outdated tests
+  
 
