@@ -32,7 +32,7 @@ def clean_dummy
 end
 
 def clean_tmp
-  FileUtils.rm_rf File.expand_path(File.join(File.dirname(__FILE__), "../tmp"))
+  FileUtils.rm_rf File.join(File.dirname(__FILE__), "../tmp")
 end
 
 VALIDATE = {
