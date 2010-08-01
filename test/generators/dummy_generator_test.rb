@@ -14,6 +14,7 @@ class DummyGeneratorTest < Rails::Generators::TestCase
     ["children", "parents", "grand_parents"].each do |model|
       assert_file "test/dummy/data/#{model}.yml"
     end
+    assert_file "lib/tasks/dummy.rake"
     
     all_options = {%w()    => [{:n => "children", :a => "40"}, 
                               {:n => "parents", :a => "20"}, 
