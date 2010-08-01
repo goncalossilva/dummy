@@ -28,11 +28,11 @@ def create_test_application
 end
 
 def clean_dummy
-  FileUtils.rm_rf(["#{Rails.root}/test/dummy/", "#{Rails.root}/lib/tasks/dummy.rake"])
+  FileUtils.rm_rf ["#{Rails.root}/test/dummy/", "#{Rails.root}/lib/tasks/dummy.rake"]
 end
 
 def clean_tmp
-  FileUtils.rm_rf("tmp")
+  FileUtils.rm_rf File.expand_path(File.join(File.dirname(__FILE__), "../tmp"))
 end
 
 VALIDATE = {
