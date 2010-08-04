@@ -8,15 +8,18 @@ Description:
     Parents and Parents have many Children, the generator will create dummy
     data for 10 GrandParents, 20 Parents and 40 Children.
     
-    It also provides a rake file for importing the generated data.
+    You can also set interactively set the amounts for each model.
+    
+    Finally, Dummy provides a rake file for importing the generated data.
 
 Example:
     `rails generate dummy:data`
 
     Creates YAML fixtures for every model and a rake file for importing the data:
     
-        Fixtures: test/dummy/*
-        Rakefile: lib/tasks/dummy.rake
+        Fixtures: test/dummy/data/*
+        Rakefile: lib/tasks/dummy_data.rake
+        Dummyfile: test/dummy/Dummyfile
         
     `rails generate dummy:data --growth-factor=1.0 --base-amount=5`
 
@@ -26,3 +29,11 @@ Example:
 
     Creates YAML fixtures for every model containing N fixtures which can range 
     from 10 to 3.0*D where D is the association depth of a given model.
+    
+    `rails generate dummy:data --manual-amounts`
+    
+    Asks for the amount of records to generate for each model.
+    
+    `rails generate dummy:data --output-folder=test/awesome_dummy`
+    
+    Creates YAML fixtures for every model and places them in test/awesome_dummy/data.
