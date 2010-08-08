@@ -17,7 +17,7 @@ module Dummy
     end
 
     def paragraphs
-      (1..3).map { paragraph }.join("\n")
+      (1..3).map { paragraph }.join(" ") # removing \n because of ruby's syck bug
     end
     
     private

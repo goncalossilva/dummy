@@ -15,7 +15,7 @@ module DummyCompanyTests
     end
     
     test "generates a valid group of paragraphs" do
-      assert_match VALIDATE[:paragraphs], Dummy::Lorem.paragraphs.gsub!("\n", " ")
+      assert_match VALIDATE[:paragraphs], Dummy::Lorem.paragraphs#.gsub!("\n", " ")
     end
   end
 end
