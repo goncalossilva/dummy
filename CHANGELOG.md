@@ -1,5 +1,5 @@
-## 0.9 (August 1, 2010)
+## 0.9 (August 10, 2010)
 
 Features:
-  - generating dummy data cleverly (functionality split up from old repository)
+  - cleverly generating dummy data (functionality split up from old project)
 
