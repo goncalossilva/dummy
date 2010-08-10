@@ -7,11 +7,10 @@ require "dummy/lorem"
 require "dummy/name"
 require "dummy/phone_number"
 require "dummy/geolocation"
-require "generators/dummy_generator"
 
 module Dummy
   class << self
-    
+      
     def magic_data(field, type)
       case type
       when :string, :text then magic_string(field, type)

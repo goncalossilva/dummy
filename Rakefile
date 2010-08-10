@@ -39,18 +39,4 @@ namespace :test do
       system "ruby #{test_path}"
     end
   end
-  
-  desc "Run tests on the dummy data generators"
-  task :dummy_generators do
-    Dir["test/*_test.rb"].each do |test_path|
-      system "ruby #{test_path}"
-    end
-  end
-  
-  desc "Run tests on the Rails generator"
-  task :rails_generator do
-    Dir["test/generators/*_test.rb"].each do |test_path|
-      system "ruby #{test_path}"
-    end
-  end
 end
