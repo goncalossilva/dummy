@@ -1,8 +1,8 @@
 Gem::Specification.new do |gem|
   gem.name              = "dummy"
-  gem.version           = "0.9.1"
+  gem.version           = "0.9.2"
   gem.platform          = Gem::Platform::RUBY
-  gem.authors           = ["Gonçalo Silva"]
+  gem.authors           = ["Goncalo Silva"]
   gem.email             = ["goncalossilva@gmail.com"]
   gem.homepage          = "http://github.com/goncalossilva/dummy"
   gem.summary           = "Generates dummy data"
