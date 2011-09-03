@@ -2,19 +2,19 @@ require File.expand_path(File.dirname(__FILE__) + "/test_helper")
 
 module DummyInternetTests
   class DummyInternetTest < Test::Unit::TestCase
-    test "generates valid emails" do
+    def test_generates_valid_emails
       assert_match VALIDATE[:email], Dummy::Internet.email
     end
 
-    test "generates valid user names" do
+    def test_generates_valid_user_names
       assert_match VALIDATE[:username], Dummy::Internet.username
     end
-    
-    test "generates a valid password (MD5)" do
+
+    def test_generates_a_valid_password_MD5
       assert_match VALIDATE[:password], Dummy::Internet.password
     end
-    
-    test "generates valid urls" do
+
+    def test_generates_valid_urls
       assert_match VALIDATE[:url], Dummy::Internet.url
     end
   end

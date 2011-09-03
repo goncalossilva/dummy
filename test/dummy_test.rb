@@ -6,7 +6,7 @@ module DummyTests
       data[:types].each do |type|
         data[:names].each do |name|
           class_eval <<-EOV
-            test "magic generation of '#{test.to_s}' for #{type} column named '#{name}'" do
+            def test_magic_generation_of_#{test.to_s}_for_#{type}_column_named_#{name}
               assert_match VALIDATE[:#{test}], Dummy.magic_data("#{name}", :#{type}).to_s
             end
           EOV
