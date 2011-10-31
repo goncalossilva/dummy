@@ -83,6 +83,8 @@ module Dummy
         Dummy::Geolocation.lat.to_s
       when /^(.*[-_:+ ])*(lon|lng)/ then
         Dummy::Geolocation.lng.to_s
+      when /^ip|ip$/
+        Dummy::Internet.ip
       else
         case type
         when :string then

@@ -41,6 +41,10 @@ module Dummy
       
       "#{protocol}://#{name}.#{DOMAINS.rand}"
     end
+
+    def ip
+      Array.new(4) { rand(256) }.join(".")
+    end
       
     private
 
