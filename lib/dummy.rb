@@ -48,7 +48,7 @@ module Dummy
         Dummy::Address.city
       when /mail/ then
         Dummy::Internet.email
-      when /password|pass|pwd/ then
+      when /password|pass|pwd|token/ then
         Dummy::Internet.password
       when /url|uri|href|link|page|site/ then
         Dummy::Internet.url
