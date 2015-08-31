@@ -1,8 +1,9 @@
-require "rake"
+require 'rake'
+require 'rake/testtask'
 
 gemspec = eval(File.read(Dir["*.gemspec"].first))
 
-task :default => ["test:all"]
+task :default => ['test']
 
 desc "Validate the gemspec"
 task :gemspec do
@@ -34,11 +35,9 @@ task :syntax do
   end
 end
 
-namespace :test do
-  desc "Run all tests"
-  task :all do
-    Dir["test/**/*_test.rb"].each do |test_path|
-      system "ruby #{test_path}"
-    end
-  end
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.test_files = FileList['test/*_test.rb']
+  t.verbose = true
 end
+

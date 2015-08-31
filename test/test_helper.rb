@@ -1,8 +1,9 @@
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
 
-$:.unshift File.expand_path('../../lib',  __FILE__)
 require "rubygems"
+require_relative '../lib/dummy'
+
 require "fileutils"
 require "test/unit"
 
