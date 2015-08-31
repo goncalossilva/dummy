@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + "/test_helper")
+require_relative 'test_helper'
 
 module DummyGeolocationTests
   class DummyGeolocationTest < Test::Unit::TestCase
