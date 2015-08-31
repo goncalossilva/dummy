@@ -105,15 +105,15 @@ module Dummy
     def magic_integer(field)
       case field
         when /phone/
-          p = Dummy::PhoneNumber.phone_number_short.gsub("-", "")
-          (p = p.to_i + 1000000000) if p[0] == "0"
+          p = Dummy::PhoneNumber.phone_number_short.gsub('-', '')
+          (p = p.to_i + 1000000000) if p[0] == '0'
           p.to_i
         when /zip|postal/
           z = Dummy::Address.zip_code
-          (z = z.to_i + 10000) if z[0] == "0"
+          (z = z.to_i + 10000) if z[0] == '0'
           z.to_i
         when /street|road|address|residence|residency/
-          (("#" * rand(3)) << "###").numerify.to_i
+          (('#' * rand(3)) << '###').numerify.to_i
         else
           rand(1000)
       end
@@ -138,7 +138,7 @@ module Dummy
         when /^(.*[-_:+ ])*(lon|lng)/ then
           Dummy::Geolocation.lng
         else
-          (("#" * rand(4)) << "#.#" << ("#" * rand(8))).numerify.to_f
+          (('#' * rand(4)) << '#.#' << ('#' * rand(8))).numerify.to_f
       end
     end
   end
