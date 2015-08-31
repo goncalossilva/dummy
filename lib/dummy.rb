@@ -48,13 +48,12 @@ module Dummy
           Dummy::Address.city
         when /mail/ then
           Dummy::Internet.email
+        when /address|residence|residency/ then
+          Dummy::Address.street_address
         when /pass|pwd|token|id|permalink|slug/ then
           Dummy::Internet.password
         when /url|uri|href|link|page|site/ then
           Dummy::Internet.url
-        when /address|residence|residency/ then
-          puts "\n\there... #{Dummy::Address.street_address}"
-          Dummy::Address.street_address
         when /road|street/ then
           Dummy::Address.street_name
         when /user|usr|login/ then
