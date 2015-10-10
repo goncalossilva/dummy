@@ -1,10 +1,11 @@
-require "codeclimate-test-reporter"
+require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 
-$:.unshift File.expand_path('../../lib',  __FILE__)
-require "rubygems"
-require "fileutils"
-require "test/unit"
+require 'rubygems'
+require_relative '../lib/dummy'
+
+require 'fileutils'
+require 'test/unit'
 
 VALIDATE = {
   :zip_code => /^([0-9]{5}-?[0-9]{4}|[0-9]{5})$/,

@@ -1,4 +1,4 @@
-require "digest/md5"
+require 'digest/md5'
 
 module Dummy
   module Internet
@@ -10,13 +10,13 @@ module Dummy
 
     def username
       case rand(2)
-      when 0
-        Name.first_name.gsub(/\W/, "").downcase
-      when 1
-        parts = [ Name.first_name, Name.last_name ].each {|n| n.gsub!(/\W/, "") }
-        parts = parts.join %w(. _)[Kernel.rand(2)].dup
-        parts.downcase!
-        parts
+        when 0
+          Name.first_name.gsub(/\W/, '').downcase
+        when 1
+          parts = [ Name.first_name, Name.last_name ].each {|n| n.gsub!(/\W/, '') }
+          parts = parts.join %w(. _)[Kernel.rand(2)].dup
+          parts.downcase!
+          parts
       end
     end
     
@@ -25,25 +25,25 @@ module Dummy
     end
     
     def url
-      name = ""
-      protocol = "http"
+      name = ''
+      protocol = 'http'
       
       case rand(5)
-      when 0, 1 then name = Name.first_name.gsub(/\W/, "").downcase
-      when 2, 3 then name = Name.last_name.gsub(/\W/, "").downcase
+      when 0, 1 then name = Name.first_name.gsub(/\W/, '').downcase
+      when 2, 3 then name = Name.last_name.gsub(/\W/, '').downcase
       when 4 then name = "#{Name.first_name.gsub(/\W/, '').downcase}.#{Name.last_name.gsub(/\W/, '').downcase}"
       end
       
       case rand(10)
-      when 0 then protocol = "https"
-      when 1 then protocol = "ftp"
+      when 0 then protocol = 'https'
+      when 1 then protocol = 'ftp'
       end
       
       "#{protocol}://#{name}.#{DOMAINS.rand}"
     end
 
     def ip
-      Array.new(4) { rand(256) }.join(".")
+      Array.new(4) { rand(256) }.join('.')
     end
       
     private
